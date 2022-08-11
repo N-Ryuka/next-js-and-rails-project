@@ -26,9 +26,9 @@ const Home: FC<Props> = (props) => {
 };
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  // console.log(context);
   const response = await fetch("http://api:3000/posts", { method: "GET" });
   const json = await response.json();
+  console.log(json);
 
   return {
     props: {
