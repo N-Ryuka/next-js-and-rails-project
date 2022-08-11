@@ -1,1 +1,0 @@
-# next-js-and-rails-project
