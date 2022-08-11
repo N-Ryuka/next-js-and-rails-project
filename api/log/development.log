@@ -1,0 +1,420 @@
+Started GET "/" for 172.25.0.1 at 2022-08-02 21:02:01 +0900
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /usr/local/bundle/gems/railties-6.0.5.1/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /usr/local/bundle/gems/railties-6.0.5.1/lib/rails/templates/rails/welcome/index.html.erb (Duration: 25.7ms | Allocations: 404)
+Completed 200 OK in 214ms (Views: 85.8ms | ActiveRecord: 0.0ms | Allocations: 3439)
+
+
+Started GET "/favicon.ico" for 172.25.0.1 at 2022-08-02 21:02:01 +0900
+  
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+actionpack (6.0.5.1) lib/action_dispatch/middleware/debug_exceptions.rb:36:in `call'
+actionpack (6.0.5.1) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (6.0.5.1) lib/rails/rack/logger.rb:37:in `call_app'
+railties (6.0.5.1) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (6.0.5.1) lib/active_support/tagged_logging.rb:80:in `block in tagged'
+activesupport (6.0.5.1) lib/active_support/tagged_logging.rb:28:in `tagged'
+activesupport (6.0.5.1) lib/active_support/tagged_logging.rb:80:in `tagged'
+railties (6.0.5.1) lib/rails/rack/logger.rb:26:in `call'
+actionpack (6.0.5.1) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (6.0.5.1) lib/action_dispatch/middleware/request_id.rb:27:in `call'
+rack (2.2.4) lib/rack/runtime.rb:22:in `call'
+activesupport (6.0.5.1) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (6.0.5.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.0.5.1) lib/action_dispatch/middleware/static.rb:126:in `call'
+rack (2.2.4) lib/rack/sendfile.rb:110:in `call'
+actionpack (6.0.5.1) lib/action_dispatch/middleware/host_authorization.rb:103:in `call'
+railties (6.0.5.1) lib/rails/engine.rb:527:in `call'
+puma (4.3.12) lib/puma/configuration.rb:228:in `call'
+puma (4.3.12) lib/puma/server.rb:727:in `handle_request'
+puma (4.3.12) lib/puma/server.rb:476:in `process_client'
+puma (4.3.12) lib/puma/server.rb:332:in `block in run'
+puma (4.3.12) lib/puma/thread_pool.rb:134:in `block in spawn_thread'
+  [1m[35m (13.4ms)[0m  [1m[35mCREATE TABLE `schema_migrations` (`version` varchar(255) NOT NULL PRIMARY KEY)[0m
+  [1m[35m (11.1ms)[0m  [1m[35mCREATE TABLE `ar_internal_metadata` (`key` varchar(255) NOT NULL PRIMARY KEY, `value` varchar(255), `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL)[0m
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT GET_LOCK('8304327681930009975', 0)[0m
+  [1m[35m (1.1ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+Migrating to CreatePosts (20220802120246)
+  [1m[35m (14.4ms)[0m  [1m[35mCREATE TABLE `posts` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `title` varchar(255), `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL)[0m
+  [1m[35m (0.7ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.6ms)[0m  [1m[32mINSERT INTO `schema_migrations` (`version`) VALUES ('20220802120246')[0m
+  [1m[35m (2.9ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.6ms)[0m  [1m[34mSELECT `ar_internal_metadata`.* FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'environment' LIMIT 1[0m
+  [1m[35m (0.6ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (1.1ms)[0m  [1m[32mINSERT INTO `ar_internal_metadata` (`key`, `value`, `created_at`, `updated_at`) VALUES ('environment', 'development', '2022-08-02 12:03:03.807035', '2022-08-02 12:03:03.807035')[0m
+  [1m[35m (1.7ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT RELEASE_LOCK('8304327681930009975')[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[35m (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mPost Create (0.6ms)[0m  [1m[32mINSERT INTO `posts` (`title`, `created_at`, `updated_at`) VALUES ('Next.js + Ruby on Rails + Docker の環境構築', '2022-08-02 12:03:18.280134', '2022-08-02 12:03:18.280134')[0m
+  [1m[35m (2.0ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.5ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mPost Create (1.1ms)[0m  [1m[32mINSERT INTO `posts` (`title`, `created_at`, `updated_at`) VALUES ('React Hooks でカスタムフックを作る', '2022-08-02 12:03:18.297775', '2022-08-02 12:03:18.297775')[0m
+  [1m[35m (2.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mPost Create (0.9ms)[0m  [1m[32mINSERT INTO `posts` (`title`, `created_at`, `updated_at`) VALUES ('GraphQL と Apollo Client 入門', '2022-08-02 12:03:18.308553', '2022-08-02 12:03:18.308553')[0m
+  [1m[35m (2.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mPost Create (0.7ms)[0m  [1m[32mINSERT INTO `posts` (`title`, `created_at`, `updated_at`) VALUES ('【TypeScript4.3】Template Literal Types', '2022-08-02 12:03:18.318698', '2022-08-02 12:03:18.318698')[0m
+  [1m[35m (2.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mPost Create (0.4ms)[0m  [1m[32mINSERT INTO `posts` (`title`, `created_at`, `updated_at`) VALUES ('Tailwind CSS でダークモード実装', '2022-08-02 12:03:18.328977', '2022-08-02 12:03:18.328977')[0m
+  [1m[35m (2.1ms)[0m  [1m[35mCOMMIT[0m
+Started GET "/posts" for 172.25.0.1 at 2022-08-02 21:04:22 +0900
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+Processing by PostsController#index as HTML
+  [1m[36mPost Load (1.1ms)[0m  [1m[34mSELECT `posts`.* FROM `posts`[0m
+  ↳ app/controllers/posts_controller.rb:8:in `index'
+Completed 200 OK in 21ms (Views: 7.7ms | ActiveRecord: 3.1ms | Allocations: 4115)
+
+
+Started GET "/" for 172.25.0.1 at 2022-08-02 21:07:18 +0900
+  
+NameError (undefined local variable or method `config' for #<ActionDispatch::Routing::Mapper:0x00005584cf4788e0>):
+  
+config/routes.rb:2:in `block in <main>'
+config/routes.rb:1:in `<main>'
+Started GET "/" for 172.25.0.1 at 2022-08-02 21:08:13 +0900
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /usr/local/bundle/gems/railties-6.0.5.1/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /usr/local/bundle/gems/railties-6.0.5.1/lib/rails/templates/rails/welcome/index.html.erb (Duration: 4.2ms | Allocations: 185)
+Completed 200 OK in 18ms (Views: 7.4ms | ActiveRecord: 0.0ms | Allocations: 1655)
+
+
+Started GET "/posts" for 172.25.0.2 at 2022-08-02 21:08:51 +0900
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+Processing by PostsController#index as */*
+  [1m[36mPost Load (0.8ms)[0m  [1m[34mSELECT `posts`.* FROM `posts`[0m
+  ↳ app/controllers/posts_controller.rb:8:in `index'
+Completed 200 OK in 23ms (Views: 8.4ms | ActiveRecord: 3.9ms | Allocations: 4117)
+
+
+Started GET "/posts" for 172.25.0.2 at 2022-08-02 21:09:09 +0900
+Processing by PostsController#index as */*
+  [1m[36mPost Load (0.8ms)[0m  [1m[34mSELECT `posts`.* FROM `posts`[0m
+  ↳ app/controllers/posts_controller.rb:8:in `index'
+Completed 200 OK in 8ms (Views: 6.7ms | ActiveRecord: 0.8ms | Allocations: 1326)
+
+
+Started GET "/posts" for 172.25.0.2 at 2022-08-02 21:11:19 +0900
+Processing by PostsController#index as */*
+  [1m[36mPost Load (0.9ms)[0m  [1m[34mSELECT `posts`.* FROM `posts`[0m
+  ↳ app/controllers/posts_controller.rb:8:in `index'
+Completed 200 OK in 9ms (Views: 7.2ms | ActiveRecord: 0.9ms | Allocations: 1326)
+
+
+Started GET "/posts" for 172.25.0.2 at 2022-08-02 21:11:19 +0900
+Processing by PostsController#index as */*
+  [1m[36mPost Load (0.6ms)[0m  [1m[34mSELECT `posts`.* FROM `posts`[0m
+  ↳ app/controllers/posts_controller.rb:8:in `index'
+Completed 200 OK in 8ms (Views: 6.8ms | ActiveRecord: 0.6ms | Allocations: 1312)
+
+
+Started GET "/posts" for 172.25.0.2 at 2022-08-02 21:11:27 +0900
+Processing by PostsController#index as */*
+  [1m[36mPost Load (0.5ms)[0m  [1m[34mSELECT `posts`.* FROM `posts`[0m
+  ↳ app/controllers/posts_controller.rb:8:in `index'
+Completed 200 OK in 6ms (Views: 5.0ms | ActiveRecord: 0.5ms | Allocations: 1326)
+
+
+Started GET "/posts" for 172.25.0.2 at 2022-08-02 21:12:20 +0900
+Processing by PostsController#index as */*
+  [1m[36mPost Load (1.3ms)[0m  [1m[34mSELECT `posts`.* FROM `posts`[0m
+  ↳ app/controllers/posts_controller.rb:8:in `index'
+Completed 200 OK in 8ms (Views: 5.3ms | ActiveRecord: 1.3ms | Allocations: 1312)
+
+
+Started GET "/posts" for 172.25.0.2 at 2022-08-02 21:12:20 +0900
+Processing by PostsController#index as */*
+  [1m[36mPost Load (1.7ms)[0m  [1m[34mSELECT `posts`.* FROM `posts`[0m
+  ↳ app/controllers/posts_controller.rb:8:in `index'
+Completed 200 OK in 25ms (Views: 21.3ms | ActiveRecord: 1.7ms | Allocations: 1312)
+
+
+Started GET "/posts" for 172.25.0.2 at 2022-08-02 21:12:34 +0900
+Processing by PostsController#index as */*
+  [1m[36mPost Load (1.3ms)[0m  [1m[34mSELECT `posts`.* FROM `posts`[0m
+  ↳ app/controllers/posts_controller.rb:8:in `index'
+Completed 200 OK in 6ms (Views: 4.4ms | ActiveRecord: 1.3ms | Allocations: 1326)
+
+
+Started GET "/posts" for 172.25.0.2 at 2022-08-02 21:13:23 +0900
+Processing by PostsController#index as */*
+  [1m[36mPost Load (1.3ms)[0m  [1m[34mSELECT `posts`.* FROM `posts`[0m
+  ↳ app/controllers/posts_controller.rb:8:in `index'
+Completed 200 OK in 18ms (Views: 15.4ms | ActiveRecord: 1.3ms | Allocations: 1312)
+
+
+Started GET "/posts" for 172.25.0.2 at 2022-08-02 21:14:14 +0900
+Processing by PostsController#index as */*
+  [1m[36mPost Load (2.5ms)[0m  [1m[34mSELECT `posts`.* FROM `posts`[0m
+  ↳ app/controllers/posts_controller.rb:8:in `index'
+Completed 200 OK in 16ms (Views: 11.6ms | ActiveRecord: 2.5ms | Allocations: 1312)
+
+
+Started GET "/posts" for 172.25.0.2 at 2022-08-02 21:14:50 +0900
+Processing by PostsController#index as */*
+  [1m[36mPost Load (1.1ms)[0m  [1m[34mSELECT `posts`.* FROM `posts`[0m
+  ↳ app/controllers/posts_controller.rb:8:in `index'
+Completed 200 OK in 10ms (Views: 7.9ms | ActiveRecord: 1.1ms | Allocations: 1312)
+
+
+Started GET "/posts" for 172.25.0.2 at 2022-08-02 21:14:51 +0900
+Processing by PostsController#index as */*
+  [1m[36mPost Load (1.3ms)[0m  [1m[34mSELECT `posts`.* FROM `posts`[0m
+  ↳ app/controllers/posts_controller.rb:8:in `index'
+Completed 200 OK in 28ms (Views: 25.8ms | ActiveRecord: 1.3ms | Allocations: 1316)
+
+
+Started GET "/posts" for 172.25.0.2 at 2022-08-02 21:14:55 +0900
+Processing by PostsController#index as */*
+  [1m[36mPost Load (1.0ms)[0m  [1m[34mSELECT `posts`.* FROM `posts`[0m
+  ↳ app/controllers/posts_controller.rb:8:in `index'
+Completed 200 OK in 7ms (Views: 5.4ms | ActiveRecord: 1.0ms | Allocations: 1312)
+
+
+Started GET "/posts" for 172.25.0.2 at 2022-08-02 21:15:34 +0900
+Processing by PostsController#index as */*
+  [1m[36mPost Load (0.9ms)[0m  [1m[34mSELECT `posts`.* FROM `posts`[0m
+  ↳ app/controllers/posts_controller.rb:8:in `index'
+Completed 200 OK in 7ms (Views: 5.4ms | ActiveRecord: 0.9ms | Allocations: 1312)
+
+
+Started GET "/posts" for 172.25.0.2 at 2022-08-02 21:15:34 +0900
+Processing by PostsController#index as */*
+  [1m[36mPost Load (1.6ms)[0m  [1m[34mSELECT `posts`.* FROM `posts`[0m
+  ↳ app/controllers/posts_controller.rb:8:in `index'
+Completed 200 OK in 17ms (Views: 15.0ms | ActiveRecord: 1.6ms | Allocations: 1313)
+
+
+Started GET "/posts" for 172.25.0.2 at 2022-08-02 21:15:59 +0900
+Processing by PostsController#index as */*
+  [1m[36mPost Load (1.1ms)[0m  [1m[34mSELECT `posts`.* FROM `posts`[0m
+  ↳ app/controllers/posts_controller.rb:8:in `index'
+Completed 200 OK in 11ms (Views: 9.4ms | ActiveRecord: 1.1ms | Allocations: 1312)
+
+
+Started GET "/posts" for 172.25.0.3 at 2022-08-02 21:24:08 +0900
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+Processing by PostsController#index as */*
+  [1m[36mPost Load (1.4ms)[0m  [1m[34mSELECT `posts`.* FROM `posts`[0m
+  ↳ app/controllers/posts_controller.rb:8:in `index'
+Completed 200 OK in 21ms (Views: 7.5ms | ActiveRecord: 3.0ms | Allocations: 4117)
+
+
+Started GET "/posts" for 172.25.0.3 at 2022-08-02 21:24:54 +0900
+Processing by PostsController#index as */*
+  [1m[36mPost Load (1.1ms)[0m  [1m[34mSELECT `posts`.* FROM `posts`[0m
+  ↳ app/controllers/posts_controller.rb:8:in `index'
+Completed 200 OK in 9ms (Views: 7.3ms | ActiveRecord: 1.1ms | Allocations: 1326)
+
+
+Started GET "/posts" for 172.25.0.3 at 2022-08-02 21:24:54 +0900
+Processing by PostsController#index as */*
+  [1m[36mPost Load (1.3ms)[0m  [1m[34mSELECT `posts`.* FROM `posts`[0m
+  ↳ app/controllers/posts_controller.rb:8:in `index'
+Completed 200 OK in 10ms (Views: 7.5ms | ActiveRecord: 1.3ms | Allocations: 1312)
+
+
+Started GET "/posts" for 172.25.0.3 at 2022-08-02 21:36:43 +0900
+Processing by PostsController#index as */*
+  [1m[36mPost Load (0.7ms)[0m  [1m[34mSELECT `posts`.* FROM `posts`[0m
+  ↳ app/controllers/posts_controller.rb:8:in `index'
+Completed 200 OK in 6ms (Views: 4.3ms | ActiveRecord: 0.7ms | Allocations: 1322)
+
+
+Started GET "/posts" for 172.25.0.3 at 2022-08-02 21:37:14 +0900
+Processing by PostsController#index as */*
+  [1m[36mPost Load (0.6ms)[0m  [1m[34mSELECT `posts`.* FROM `posts`[0m
+  ↳ app/controllers/posts_controller.rb:8:in `index'
+Completed 200 OK in 8ms (Views: 6.7ms | ActiveRecord: 0.6ms | Allocations: 1326)
+
+
+Started GET "/posts" for 172.25.0.3 at 2022-08-11 18:23:34 +0900
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+Processing by PostsController#index as */*
+  [1m[36mPost Load (3.0ms)[0m  [1m[34mSELECT `posts`.* FROM `posts`[0m
+  ↳ app/controllers/posts_controller.rb:8:in `index'
+Completed 200 OK in 51ms (Views: 25.3ms | ActiveRecord: 7.8ms | Allocations: 4117)
+
+
+Started GET "/posts" for 172.25.0.3 at 2022-08-11 18:23:39 +0900
+Processing by PostsController#index as */*
+  [1m[36mPost Load (0.9ms)[0m  [1m[34mSELECT `posts`.* FROM `posts`[0m
+  ↳ app/controllers/posts_controller.rb:8:in `index'
+Completed 200 OK in 8ms (Views: 6.3ms | ActiveRecord: 0.9ms | Allocations: 1326)
+
+
+Started GET "/posts" for 172.25.0.3 at 2022-08-11 18:24:18 +0900
+Processing by PostsController#index as */*
+  [1m[36mPost Load (1.1ms)[0m  [1m[34mSELECT `posts`.* FROM `posts`[0m
+  ↳ app/controllers/posts_controller.rb:8:in `index'
+Completed 200 OK in 10ms (Views: 7.2ms | ActiveRecord: 1.1ms | Allocations: 1326)
+
+
+Started GET "/posts" for 172.25.0.3 at 2022-08-11 18:25:00 +0900
+Processing by PostsController#index as */*
+  [1m[36mPost Load (1.0ms)[0m  [1m[34mSELECT `posts`.* FROM `posts`[0m
+  ↳ app/controllers/posts_controller.rb:8:in `index'
+Completed 200 OK in 9ms (Views: 7.3ms | ActiveRecord: 1.0ms | Allocations: 1326)
+
+
+Started GET "/" for 172.25.0.1 at 2022-08-11 18:25:03 +0900
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /usr/local/bundle/gems/railties-6.0.5.1/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /usr/local/bundle/gems/railties-6.0.5.1/lib/rails/templates/rails/welcome/index.html.erb (Duration: 13.8ms | Allocations: 297)
+Completed 200 OK in 65ms (Views: 32.8ms | ActiveRecord: 0.0ms | Allocations: 2353)
+
+
+Started GET "/posts" for 172.25.0.1 at 2022-08-11 18:25:08 +0900
+Processing by PostsController#index as HTML
+  [1m[36mPost Load (0.9ms)[0m  [1m[34mSELECT `posts`.* FROM `posts`[0m
+  ↳ app/controllers/posts_controller.rb:8:in `index'
+Completed 200 OK in 8ms (Views: 6.9ms | ActiveRecord: 0.9ms | Allocations: 1310)
+
+
+Started GET "/posts" for 172.25.0.3 at 2022-08-11 18:25:14 +0900
+Processing by PostsController#index as */*
+  [1m[36mPost Load (1.4ms)[0m  [1m[34mSELECT `posts`.* FROM `posts`[0m
+  ↳ app/controllers/posts_controller.rb:8:in `index'
+Completed 200 OK in 8ms (Views: 5.8ms | ActiveRecord: 1.4ms | Allocations: 1312)
+
+
+Started GET "/posts" for 172.25.0.3 at 2022-08-11 18:32:51 +0900
+Processing by PostsController#index as */*
+  [1m[36mPost Load (0.6ms)[0m  [1m[34mSELECT `posts`.* FROM `posts`[0m
+  ↳ app/controllers/posts_controller.rb:8:in `index'
+Completed 200 OK in 9ms (Views: 7.8ms | ActiveRecord: 0.6ms | Allocations: 1312)
+
+
+Started GET "/posts" for 172.25.0.3 at 2022-08-11 18:32:51 +0900
+Processing by PostsController#index as */*
+  [1m[36mPost Load (3.2ms)[0m  [1m[34mSELECT `posts`.* FROM `posts`[0m
+  ↳ app/controllers/posts_controller.rb:8:in `index'
+Completed 200 OK in 27ms (Views: 23.8ms | ActiveRecord: 3.2ms | Allocations: 1313)
+
+
+Started GET "/posts" for 172.23.0.3 at 2022-08-11 18:33:33 +0900
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+Processing by PostsController#index as */*
+  [1m[36mPost Load (0.8ms)[0m  [1m[34mSELECT `posts`.* FROM `posts`[0m
+  ↳ app/controllers/posts_controller.rb:8:in `index'
+Completed 200 OK in 24ms (Views: 11.1ms | ActiveRecord: 3.6ms | Allocations: 4117)
+
+
+Started GET "/posts" for 172.23.0.3 at 2022-08-11 18:33:47 +0900
+Processing by PostsController#index as */*
+  [1m[36mPost Load (0.9ms)[0m  [1m[34mSELECT `posts`.* FROM `posts`[0m
+  ↳ app/controllers/posts_controller.rb:8:in `index'
+Completed 200 OK in 7ms (Views: 5.3ms | ActiveRecord: 0.9ms | Allocations: 1326)
+
+
+Started GET "/posts" for 172.23.0.3 at 2022-08-11 18:34:44 +0900
+Processing by PostsController#index as */*
+  [1m[36mPost Load (1.6ms)[0m  [1m[34mSELECT `posts`.* FROM `posts`[0m
+  ↳ app/controllers/posts_controller.rb:8:in `index'
+Completed 200 OK in 14ms (Views: 11.7ms | ActiveRecord: 1.6ms | Allocations: 1326)
+
+
+Started GET "/posts" for 172.23.0.3 at 2022-08-11 18:35:01 +0900
+Processing by PostsController#index as */*
+  [1m[36mPost Load (1.0ms)[0m  [1m[34mSELECT `posts`.* FROM `posts`[0m
+  ↳ app/controllers/posts_controller.rb:8:in `index'
+Completed 200 OK in 9ms (Views: 7.4ms | ActiveRecord: 1.0ms | Allocations: 1326)
+
+
+Started GET "/posts" for 172.23.0.3 at 2022-08-11 18:37:34 +0900
+Processing by PostsController#index as */*
+  [1m[36mPost Load (1.2ms)[0m  [1m[34mSELECT `posts`.* FROM `posts`[0m
+  ↳ app/controllers/posts_controller.rb:8:in `index'
+Completed 200 OK in 11ms (Views: 8.9ms | ActiveRecord: 1.2ms | Allocations: 1312)
+
+
+Started GET "/posts" for 172.23.0.3 at 2022-08-11 18:37:35 +0900
+Processing by PostsController#index as */*
+  [1m[36mPost Load (1.2ms)[0m  [1m[34mSELECT `posts`.* FROM `posts`[0m
+  ↳ app/controllers/posts_controller.rb:8:in `index'
+Completed 200 OK in 44ms (Views: 42.0ms | ActiveRecord: 1.2ms | Allocations: 1312)
+
+
+Started GET "/posts" for 172.23.0.3 at 2022-08-11 18:37:51 +0900
+Processing by PostsController#index as */*
+  [1m[36mPost Load (0.6ms)[0m  [1m[34mSELECT `posts`.* FROM `posts`[0m
+  ↳ app/controllers/posts_controller.rb:8:in `index'
+Completed 200 OK in 5ms (Views: 3.9ms | ActiveRecord: 0.6ms | Allocations: 1326)
+
+
+Started GET "/posts" for 172.23.0.3 at 2022-08-11 18:37:58 +0900
+Processing by PostsController#index as */*
+  [1m[36mPost Load (0.5ms)[0m  [1m[34mSELECT `posts`.* FROM `posts`[0m
+  ↳ app/controllers/posts_controller.rb:8:in `index'
+Completed 200 OK in 4ms (Views: 3.2ms | ActiveRecord: 0.5ms | Allocations: 1312)
+
+
+Started GET "/posts" for 172.23.0.3 at 2022-08-11 18:39:58 +0900
+Processing by PostsController#index as */*
+  [1m[36mPost Load (1.0ms)[0m  [1m[34mSELECT `posts`.* FROM `posts`[0m
+  ↳ app/controllers/posts_controller.rb:8:in `index'
+Completed 200 OK in 9ms (Views: 7.3ms | ActiveRecord: 1.0ms | Allocations: 1312)
+
+
+Started GET "/posts" for 172.24.0.3 at 2022-08-11 18:40:50 +0900
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+Processing by PostsController#index as */*
+  [1m[36mPost Load (0.8ms)[0m  [1m[34mSELECT `posts`.* FROM `posts`[0m
+  ↳ app/controllers/posts_controller.rb:8:in `index'
+Completed 200 OK in 27ms (Views: 12.4ms | ActiveRecord: 4.0ms | Allocations: 4117)
+
+
+Started GET "/posts" for 172.24.0.3 at 2022-08-11 18:42:40 +0900
+Processing by PostsController#index as */*
+  [1m[36mPost Load (0.6ms)[0m  [1m[34mSELECT `posts`.* FROM `posts`[0m
+  ↳ app/controllers/posts_controller.rb:8:in `index'
+Completed 200 OK in 5ms (Views: 4.5ms | ActiveRecord: 0.6ms | Allocations: 1326)
+
+
+Started GET "/posts" for 172.24.0.3 at 2022-08-11 18:43:33 +0900
+Processing by PostsController#index as */*
+  [1m[36mPost Load (3.1ms)[0m  [1m[34mSELECT `posts`.* FROM `posts`[0m
+  ↳ app/controllers/posts_controller.rb:8:in `index'
+Completed 200 OK in 13ms (Views: 7.3ms | ActiveRecord: 3.1ms | Allocations: 1326)
+
+
+Started GET "/posts" for 172.24.0.3 at 2022-08-11 18:43:33 +0900
+Processing by PostsController#index as */*
+  [1m[36mPost Load (4.8ms)[0m  [1m[34mSELECT `posts`.* FROM `posts`[0m
+  ↳ app/controllers/posts_controller.rb:8:in `index'
+Completed 200 OK in 32ms (Views: 26.4ms | ActiveRecord: 4.8ms | Allocations: 1313)
+
+
+Started GET "/posts" for 172.24.0.3 at 2022-08-11 18:43:55 +0900
+Processing by PostsController#index as */*
+  [1m[36mPost Load (1.2ms)[0m  [1m[34mSELECT `posts`.* FROM `posts`[0m
+  ↳ app/controllers/posts_controller.rb:8:in `index'
+Completed 200 OK in 10ms (Views: 8.2ms | ActiveRecord: 1.2ms | Allocations: 1312)
+
+
+Started GET "/posts" for 172.24.0.3 at 2022-08-11 18:44:17 +0900
+Processing by PostsController#index as */*
+  [1m[36mPost Load (0.7ms)[0m  [1m[34mSELECT `posts`.* FROM `posts`[0m
+  ↳ app/controllers/posts_controller.rb:8:in `index'
+Completed 200 OK in 6ms (Views: 5.0ms | ActiveRecord: 0.7ms | Allocations: 1326)
+
+
+Started GET "/posts" for 172.24.0.3 at 2022-08-11 18:50:24 +0900
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+Processing by PostsController#index as */*
+  [1m[36mPost Load (1.6ms)[0m  [1m[34mSELECT `posts`.* FROM `posts`[0m
+  ↳ app/controllers/posts_controller.rb:8:in `index'
+Completed 200 OK in 65ms (Views: 42.1ms | ActiveRecord: 5.6ms | Allocations: 4118)
+
+
+Started GET "/posts" for 172.24.0.3 at 2022-08-11 18:52:53 +0900
+Processing by PostsController#index as */*
+  [1m[36mPost Load (0.8ms)[0m  [1m[34mSELECT `posts`.* FROM `posts`[0m
+  ↳ app/controllers/posts_controller.rb:8:in `index'
+Completed 200 OK in 5ms (Views: 4.2ms | ActiveRecord: 0.8ms | Allocations: 1326)
+
+
