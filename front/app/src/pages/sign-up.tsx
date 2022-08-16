@@ -1,17 +1,12 @@
-import React, { FC, useState, useContext } from "react";
+import React, { FC, useState } from "react";
 import {
   Flex,
   Heading,
-  Input,
-  Button,
-  InputGroup,
   Stack,
-  InputLeftElement,
   chakra,
   Box,
   Link,
   Avatar,
-  FormControl,
 } from "@chakra-ui/react";
 import { FaUserAlt, FaLock } from "react-icons/fa";
 import NLink from "next/link";
@@ -21,6 +16,9 @@ import { useRouter } from "next/router";
 import { useAuth } from "../contexts/AuthContext";
 import { signUp } from "../lib/api/auth";
 import { SignUpParams } from "../interfaces/index";
+import { PrimaryButton } from "../components/common/atoms/PrimaryButton";
+import { InputForm } from "../components/common/molecules/InputForm";
+import { AuthFormOrganism } from "../components/common/organisms/AuthFormOrganism";
 
 const CFaUserAlt = chakra(FaUserAlt);
 const CFaLock = chakra(FaLock);
@@ -85,85 +83,37 @@ export const SignUp: FC = () => {
       >
         <Avatar bg="teal.500" />
         <Heading color="teal.400">Welcome</Heading>
-        <Box minW={{ base: "90%", md: "468px" }}>
-          <form>
-            <Stack
-              spacing={4}
-              p="1rem"
-              backgroundColor="whiteAlpha.900"
-              boxShadow="md"
-            >
-              <FormControl>
-                <InputGroup>
-                  <InputLeftElement
-                    pointerEvents="none"
-                    children={<CFaUserAlt color="gray.300" />}
-                  />
-                  <Input
-                    type="text"
-                    placeholder="Name"
-                    onChange={(e) => setName(e.target.value)}
-                    value={name}
-                  />
-                </InputGroup>
-              </FormControl>
-              <FormControl>
-                <InputGroup>
-                  <InputLeftElement
-                    pointerEvents="none"
-                    children={<CFaUserAlt color="gray.300" />}
-                  />
-                  <Input
-                    type="email"
-                    placeholder="Email Address"
-                    onChange={(e) => setEmail(e.target.value)}
-                    value={email}
-                  />
-                </InputGroup>
-              </FormControl>
-              <FormControl>
-                <InputGroup>
-                  <InputLeftElement
-                    pointerEvents="none"
-                    color="gray.300"
-                    children={<CFaLock color="gray.300" />}
-                  />
-                  <Input
-                    type="password"
-                    placeholder="Password"
-                    onChange={(e) => setPassword(e.target.value)}
-                    value={password}
-                  />
-                </InputGroup>
-              </FormControl>
-              <FormControl>
-                <InputGroup>
-                  <InputLeftElement
-                    pointerEvents="none"
-                    color="gray.300"
-                    children={<CFaLock color="gray.300" />}
-                  />
-                  <Input
-                    type="password"
-                    placeholder="Password Confirmation"
-                    onChange={(e) => setPasswordConfirmation(e.target.value)}
-                    value={passwordConfirmation}
-                  />
-                </InputGroup>
-              </FormControl>
-              <Button
-                borderRadius={0}
-                type="submit"
-                variant="solid"
-                colorScheme="teal"
-                width="full"
-                onClick={handleSubmit}
-              >
-                Sign Up
-              </Button>
-            </Stack>
-          </form>
-        </Box>
+        <AuthFormOrganism>
+          <InputForm
+            icon={<CFaUserAlt color="gray.300" />}
+            value={name}
+            setValue={setName}
+            type="text"
+            placeholder="Name"
+          />
+          <InputForm
+            icon={<CFaUserAlt color="gray.300" />}
+            value={email}
+            setValue={setEmail}
+            type="email"
+            placeholder="Email address"
+          />
+          <InputForm
+            icon={<CFaLock color="gray.300" />}
+            value={password}
+            setValue={setPassword}
+            type="password"
+            placeholder="Password"
+          />
+          <InputForm
+            icon={<CFaLock color="gray.300" />}
+            value={passwordConfirmation}
+            setValue={setPasswordConfirmation}
+            type="password"
+            placeholder="Password Confirmation"
+          />
+          <PrimaryButton onClick={handleSubmit}>Sign Up</PrimaryButton>
+        </AuthFormOrganism>
       </Stack>
       <Box>
         Already have an account?{" "}
