@@ -1,40 +1,45 @@
-import React, { FC } from "react";
-import { GetStaticProps } from "next";
+import React, { FC, useContext } from "react";
+import Cookies from "js-cookie";
+import { useRouter } from "next/router";
 
-type Post = {
-  id: number;
-  title: string;
-};
+import { signOut } from "../lib/api/auth";
+import { Auth } from "../components/auth";
+import { useAuth } from "../contexts/AuthContext";
 
-type Props = {
-  posts: Post[];
-};
+const Home: FC = (props) => {
+  const router = useRouter();
+  const { setIsSignedIn, isSignedIn } = useAuth();
 
-const Home: FC<Props> = (props) => {
-  return (
-    <div>
-      <h2>POSTの一覧</h2>
-      <ul>
-        {props.posts.map((post) => (
-          <li key={post.id}>
-            {post.id}.{post.title}
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-};
+  const handleSignOut = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    try {
+      const res = await signOut();
 
-export const getStaticProps: GetStaticProps = async (context) => {
-  const response = await fetch("http://api:3000/posts", { method: "GET" });
-  const json = await response.json();
-  console.log(json);
+      if (res.data.success === true) {
+        Cookies.remove("_access_token");
+        Cookies.remove("_client");
+        Cookies.remove("_uid");
 
-  return {
-    props: {
-      posts: json,
-    },
+        setIsSignedIn(false);
+        router.push("/sign-in");
+
+        console.log("Succeeded in sign out");
+      } else {
+        console.log("Failed in sign out");
+      }
+    } catch (err) {
+      console.log(err);
+    }
   };
+
+  return (
+    <>
+      <Auth>
+        <h1>Logged in sucessfully</h1>
+        {isSignedIn ? <h1>ログイン中</h1> : <h1>ログアウト中</h1>}
+        {isSignedIn && <button onClick={handleSignOut}>ログアウト</button>}
+      </Auth>
+    </>
+  );
 };
 
 export default Home;
