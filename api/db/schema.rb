@@ -10,7 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_08_17_144927) do
+ActiveRecord::Schema.define(version: 2022_09_11_062434) do
+
+  create_table "events", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "expected_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["name"], name: "index_events_on_name", unique: true
+  end
 
   create_table "fanclubs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.integer "fanclub_master_id", null: false
@@ -20,10 +28,14 @@ ActiveRecord::Schema.define(version: 2022_08_17_144927) do
     t.index ["user_id"], name: "index_fanclubs_on_user_id"
   end
 
-  create_table "posts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
-    t.string "title"
+  create_table "user_events", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "event_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["event_id"], name: "index_user_events_on_event_id"
+    t.index ["user_id", "event_id"], name: "index_user_events_on_user_id_and_event_id", unique: true
+    t.index ["user_id"], name: "index_user_events_on_user_id"
   end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
@@ -52,4 +64,6 @@ ActiveRecord::Schema.define(version: 2022_08_17_144927) do
   end
 
   add_foreign_key "fanclubs", "users"
+  add_foreign_key "user_events", "events"
+  add_foreign_key "user_events", "users"
 end

@@ -3,7 +3,6 @@ class FanclubMaster < ActiveHash::Base
     {
       id: 1,
       name: 'AYUKA ファンクラブ',
-      price: 10_000
     },
   ]
 end

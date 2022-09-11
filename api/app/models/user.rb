@@ -37,4 +37,10 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
         :recoverable, :rememberable, :validatable
   include DeviseTokenAuth::Concerns::User
+
+  has_many :user_events
+  has_many :events, through: :user_events
+
+  validates :name, presence: true
+  validates :email, presence: true
 end
