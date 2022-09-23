@@ -54,11 +54,9 @@ export const SignIn: FC = () => {
         console.log("Signed in successfully!");
       } else {
         console.log("error");
-        // setAlertMessageOpen(true);
       }
     } catch (err) {
       console.log(err);
-      // setAlertMessageOpen(true);
     }
   };
 

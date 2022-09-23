@@ -1,11 +1,11 @@
 import { AppProps } from "next/app";
-import { ChakraProvider } from "@chakra-ui/react";
-import { extendTheme } from "@chakra-ui/react";
+import { ChakraProvider, Container, extendTheme } from "@chakra-ui/react";
 import { FC } from "react";
 import React from "react";
 
 import "../styles/globals.css";
 import { RootContextProvider } from "../contexts/index";
+import { Header } from "../components/common/molecules/Header";
 
 export const theme = extendTheme({
   styles: {
@@ -22,7 +22,10 @@ const MyApp: FC = ({ Component, pageProps }: AppProps) => {
   return (
     <RootContextProvider>
       <ChakraProvider theme={theme}>
-        <Component {...pageProps} />
+        <Header />
+        <Container maxW="4xl" centerContent>
+          <Component {...pageProps} />
+        </Container>
       </ChakraProvider>
     </RootContextProvider>
   );

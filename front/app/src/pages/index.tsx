@@ -1,45 +1,57 @@
-import React, { FC, useContext } from "react";
-import Cookies from "js-cookie";
-import { useRouter } from "next/router";
+import React, { FC } from "react";
+import { Wrap, WrapItem } from "@chakra-ui/react";
 
-import { signOut } from "../lib/api/auth";
 import { Auth } from "../components/auth";
 import { useAuth } from "../contexts/AuthContext";
+import { EventCard } from "../components/common/organisms/EventCard";
+import { getEvents } from "../lib/api/event";
+import { execTest } from "../lib/api/test";
+import { Event } from "../interfaces";
+import axios from "axios";
+import client from "../lib/api/client";
 
-const Home: FC = (props) => {
-  const router = useRouter();
+interface Props {
+  events: Array<Event>;
+}
+
+const Home: FC = (props: Props) => {
+  const { events } = props;
   const { setIsSignedIn, isSignedIn } = useAuth();
-
-  const handleSignOut = async (e: React.MouseEvent<HTMLButtonElement>) => {
-    try {
-      const res = await signOut();
-
-      if (res.data.success === true) {
-        Cookies.remove("_access_token");
-        Cookies.remove("_client");
-        Cookies.remove("_uid");
-
-        setIsSignedIn(false);
-        router.push("/sign-in");
-
-        console.log("Succeeded in sign out");
-      } else {
-        console.log("Failed in sign out");
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  };
 
   return (
     <>
       <Auth>
         <h1>Logged in sucessfully</h1>
         {isSignedIn ? <h1>ログイン中</h1> : <h1>ログアウト中</h1>}
-        {isSignedIn && <button onClick={handleSignOut}>ログアウト</button>}
+        <Wrap p={{ base: 4, md: 8 }}>
+          {events.map((event) => (
+            <WrapItem key={event.name}>
+              <EventCard
+                key={event.name}
+                id={event.id}
+                name={event.name}
+                expected_at={event.expected_at}
+                created_at={event.created_at}
+                updated_at={event.updated_at}
+              />
+            </WrapItem>
+          ))}
+        </Wrap>
       </Auth>
     </>
   );
 };
-
 export default Home;
+
+export const getStaticProps = async () => {
+  const response = await fetch("http://api:3000/api/v1/events", {
+    method: "GET",
+  });
+  const events = await response.json();
+
+  return {
+    props: {
+      events,
+    },
+  };
+};

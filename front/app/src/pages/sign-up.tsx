@@ -129,15 +129,4 @@ export const SignUp: FC = () => {
   );
 };
 
-export const getStaticProps = async () => {
-  // const response = await fetch("http://api:3000/posts", { method: "GET" });
-  // const json = await response.json();
-
-  return {
-    props: {
-      // posts: json,
-    },
-  };
-};
-
 export default SignUp;

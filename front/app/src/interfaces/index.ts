@@ -25,3 +25,12 @@ export type User = {
   created_at: Date;
   updated_at: Date;
 };
+
+// イベント
+export type Event = {
+  id: number;
+  name: string;
+  expected_at: Date;
+  created_at: Date;
+  updated_at: Date;
+};
