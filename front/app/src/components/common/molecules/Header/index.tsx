@@ -2,16 +2,17 @@ import Cookies from "js-cookie";
 import { Box, Flex, HStack, useColorModeValue } from "@chakra-ui/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import React, { FC, useState, memo, useCallback, useEffect } from "react";
 
 import { useAuth } from "../../../../contexts/AuthContext";
 import { signOut } from "../../../../lib/api/auth";
 
-export const Header = () => {
+export const Header = memo(() => {
   const { setIsSignedIn, isSignedIn } = useAuth();
 
   const router = useRouter();
 
-  const handleSignOut = async () => {
+  const handleSignOut = useCallback(async () => {
     try {
       const res = await signOut();
 
@@ -31,7 +32,7 @@ export const Header = () => {
     } catch (err) {
       console.log(err);
     }
-  };
+  }, []);
 
   return (
     <>
@@ -63,4 +64,4 @@ export const Header = () => {
       </Box>
     </>
   );
-};
+});

@@ -1,4 +1,4 @@
-import React, { FC, useState, memo, useCallback } from "react";
+import React, { FC, useState, memo, useCallback, useEffect } from "react";
 import { Flex, Heading, Stack, chakra, Avatar } from "@chakra-ui/react";
 import { FaUserAlt, FaLock } from "react-icons/fa";
 import { useRouter } from "next/router";
@@ -19,8 +19,13 @@ export const Edit: FC = memo(() => {
   const router = useRouter();
   const { currentUser, setCurrentUser, setIsSignedIn } = useAuth();
 
-  const [name, setName] = useState<string>(currentUser.name);
-  const [email, setEmail] = useState<string>(currentUser.email);
+  const [name, setName] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+
+  useEffect(() => {
+    if (currentUser?.name) setName(currentUser?.name);
+    if (currentUser?.email) setEmail(currentUser?.email);
+  }, [currentUser?.name, currentUser?.email]);
 
   const handleSubmit = useCallback(
     async (e) => {
@@ -34,6 +39,8 @@ export const Edit: FC = memo(() => {
       try {
         const res = await updateProfile(currentUser.id, params);
 
+        console.log(Cookies.get("_uid"));
+
         if (res.status === 200) {
           Cookies.set("_access_token", res.headers["access-token"]);
           Cookies.set("_client", res.headers["client"]);
@@ -42,7 +49,6 @@ export const Edit: FC = memo(() => {
           setIsSignedIn(true);
           setCurrentUser(res.data.data);
 
-          console.log(res);
           console.log("Changed in successfully!");
 
           router.replace("/profile");

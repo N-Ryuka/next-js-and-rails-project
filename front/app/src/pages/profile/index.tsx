@@ -27,13 +27,13 @@ export const Profile: FC = memo(() => {
           <Avatar bg="teal.500" />
           <Heading>Your Information</Heading>
           <AuthFormOrganism>
-            <Text>{currentUser.name}</Text>
-            <Text>{currentUser.email}</Text>
+            <Text>{currentUser?.name}</Text>
+            <Text>{currentUser?.email}</Text>
             <NLink href="profile/edit">
-              <Link color="teal.500">change profile</Link>
+              <Link color="teal.500">Change profile</Link>
             </NLink>
             <NLink href="profile/events">
-              <Link color="teal.500">see events you are joing</Link>
+              <Link color="teal.500">See all events you are joining</Link>
             </NLink>
           </AuthFormOrganism>
         </Stack>
