@@ -3,10 +3,15 @@ import { FC, ReactNode } from "react";
 
 type Props = {
   children: ReactNode;
-  onClick: (e: React.MouseEvent<HTMLButtonElement>) => Promise<void>;
+  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => any;
+  disabled?: boolean;
 };
 
-export const PrimaryButton: FC<Props> = ({ children, onClick }) => {
+export const PrimaryButton: FC<Props> = ({
+  children,
+  onClick,
+  disabled = false,
+}) => {
   return (
     <Button
       borderRadius={0}
@@ -15,6 +20,7 @@ export const PrimaryButton: FC<Props> = ({ children, onClick }) => {
       colorScheme="teal"
       width="full"
       onClick={onClick}
+      disabled={disabled}
     >
       {children}
     </Button>

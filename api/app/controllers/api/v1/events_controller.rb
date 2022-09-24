@@ -4,6 +4,10 @@ module Api
       def index
         render json: Event.all
       end
+
+      def show
+        render json: { event: Event.find(params[:id]), joined: !!current_api_v1_user.events.find_by(id: params[:id]) }
+      end
     end
   end
 end

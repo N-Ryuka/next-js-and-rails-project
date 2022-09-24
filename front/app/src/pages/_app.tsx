@@ -1,6 +1,6 @@
 import { AppProps } from "next/app";
 import { ChakraProvider, Container, extendTheme } from "@chakra-ui/react";
-import { FC } from "react";
+import { FC, memo } from "react";
 import React from "react";
 
 import "../styles/globals.css";
@@ -18,17 +18,17 @@ export const theme = extendTheme({
   },
 });
 
-const MyApp: FC = ({ Component, pageProps }: AppProps) => {
+const MyApp: FC = memo(({ Component, pageProps }: AppProps) => {
   return (
     <RootContextProvider>
       <ChakraProvider theme={theme}>
         <Header />
-        <Container maxW="4xl" centerContent>
+        <Container maxW="4xl" padding="4" centerContent>
           <Component {...pageProps} />
         </Container>
       </ChakraProvider>
     </RootContextProvider>
   );
-};
+});
 
 export default MyApp;

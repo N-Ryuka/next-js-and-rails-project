@@ -12,7 +12,6 @@ export const Header = () => {
   const router = useRouter();
 
   const handleSignOut = async () => {
-    console.log("called");
     try {
       const res = await signOut();
 
@@ -22,9 +21,10 @@ export const Header = () => {
         Cookies.remove("_uid");
 
         setIsSignedIn(false);
-        router.push("/sign-in");
 
         console.log("Succeeded in sign out");
+
+        router.replace("/sign-in");
       } else {
         console.log("Failed in sign out");
       }
@@ -40,13 +40,22 @@ export const Header = () => {
           <Link href="/">Logo</Link>
           <HStack as={"nav"} spacing={4} display={{ base: "flex" }}>
             {isSignedIn ? (
-              <Link href="">
-                <a onClick={() => handleSignOut()}>Logout</a>
-              </Link>
+              <>
+                <Link href="/profile">
+                  <a>Profile</a>
+                </Link>
+                <Link href="">
+                  <a onClick={() => handleSignOut()}>Logout</a>
+                </Link>
+              </>
             ) : (
               <>
-                <Link href="/sign-in">Sign In</Link>
-                <Link href="/sign-up">Sign Up</Link>
+                <Link href="/sign-in">
+                  <a>Sign In</a>
+                </Link>
+                <Link href="/sign-up">
+                  <a>Sign Up</a>
+                </Link>
               </>
             )}
           </HStack>

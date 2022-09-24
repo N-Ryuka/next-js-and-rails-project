@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, useState, memo, useCallback } from "react";
 import {
   Flex,
   Heading,
@@ -23,7 +23,7 @@ import { AuthFormOrganism } from "../components/common/organisms/AuthFormOrganis
 const CFaUserAlt = chakra(FaUserAlt);
 const CFaLock = chakra(FaLock);
 
-export const SignUp: FC = () => {
+export const SignUp: FC = memo(() => {
   const router = useRouter();
   const { setIsSignedIn, setCurrentUser } = useAuth();
 
@@ -33,39 +33,42 @@ export const SignUp: FC = () => {
   const [passwordConfirmation, setPasswordConfirmation] = useState<string>("");
   const [alertMessageOpen, setAlertMessageOpen] = useState<boolean>(false);
 
-  const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
+  const handleSubmit = useCallback(
+    async (e: React.MouseEvent<HTMLButtonElement>) => {
+      e.preventDefault();
 
-    const params: SignUpParams = {
-      name: name,
-      email: email,
-      password: password,
-      passwordConfirmation: passwordConfirmation,
-    };
+      const params: SignUpParams = {
+        name: name,
+        email: email,
+        password: password,
+        passwordConfirmation: passwordConfirmation,
+      };
 
-    try {
-      const res = await signUp(params);
+      try {
+        const res = await signUp(params);
 
-      if (res.status === 200) {
-        Cookies.set("_access_token", res.headers["access-token"]);
-        Cookies.set("_client", res.headers["client"]);
-        Cookies.set("_uid", res.headers["uid"]);
+        if (res.status === 200) {
+          Cookies.set("_access_token", res.headers["access-token"]);
+          Cookies.set("_client", res.headers["client"]);
+          Cookies.set("_uid", res.headers["uid"]);
 
-        setIsSignedIn(true);
-        setCurrentUser(res.data.data);
+          setIsSignedIn(true);
+          setCurrentUser(res.data.data);
 
-        router.push("/");
+          console.log("Signed in successfully!");
 
-        console.log("Signed in successfully!");
-      } else {
-        console.log("error");
+          router.replace("/");
+        } else {
+          console.log("error");
+          // setAlertMessageOpen(true);
+        }
+      } catch (err) {
+        console.log(err);
         // setAlertMessageOpen(true);
       }
-    } catch (err) {
-      console.log(err);
-      // setAlertMessageOpen(true);
-    }
-  };
+    },
+    [name, email, password, passwordConfirmation]
+  );
 
   return (
     <Flex
@@ -127,6 +130,6 @@ export const SignUp: FC = () => {
       </Box>
     </Flex>
   );
-};
+});
 
 export default SignUp;

@@ -1,20 +1,19 @@
-import React, { FC } from "react";
+import React, { FC, memo } from "react";
 import { Wrap, WrapItem } from "@chakra-ui/react";
+import { GetStaticProps } from "next";
+import Link from "next/link";
 
 import { Auth } from "../components/auth";
 import { useAuth } from "../contexts/AuthContext";
 import { EventCard } from "../components/common/organisms/EventCard";
 import { getEvents } from "../lib/api/event";
-import { execTest } from "../lib/api/test";
 import { Event } from "../interfaces";
-import axios from "axios";
-import client from "../lib/api/client";
 
 interface Props {
   events: Array<Event>;
 }
 
-const Home: FC = (props: Props) => {
+const Home: FC = memo((props: Props) => {
   const { events } = props;
   const { setIsSignedIn, isSignedIn } = useAuth();
 
@@ -26,24 +25,28 @@ const Home: FC = (props: Props) => {
         <Wrap p={{ base: 4, md: 8 }}>
           {events.map((event) => (
             <WrapItem key={event.name}>
-              <EventCard
-                key={event.name}
-                id={event.id}
-                name={event.name}
-                expected_at={event.expected_at}
-                created_at={event.created_at}
-                updated_at={event.updated_at}
-              />
+              <Link href={{ pathname: `events/${event.id}` }}>
+                <a>
+                  <EventCard
+                    key={event.name}
+                    id={event.id}
+                    name={event.name}
+                    expected_at={event.expected_at}
+                    created_at={event.created_at}
+                    updated_at={event.updated_at}
+                  />
+                </a>
+              </Link>
             </WrapItem>
           ))}
         </Wrap>
       </Auth>
     </>
   );
-};
+});
 export default Home;
 
-export const getStaticProps = async () => {
+export const getStaticProps: GetStaticProps = async () => {
   const response = await fetch("http://api:3000/api/v1/events", {
     method: "GET",
   });

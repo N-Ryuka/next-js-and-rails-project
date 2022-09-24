@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, useState, memo, useCallback } from "react";
 import {
   Flex,
   Heading,
@@ -23,42 +23,45 @@ import { AuthFormOrganism } from "../components/common/organisms/AuthFormOrganis
 const CFaUserAlt = chakra(FaUserAlt);
 const CFaLock = chakra(FaLock);
 
-export const SignIn: FC = () => {
+export const SignIn: FC = memo(() => {
   const router = useRouter();
   const { setIsSignedIn, setCurrentUser } = useAuth();
 
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
-  const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
+  const handleSubmit = useCallback(
+    async (e: React.MouseEvent<HTMLButtonElement>) => {
+      e.preventDefault();
 
-    const params: SignInParams = {
-      email: email,
-      password: password,
-    };
+      const params: SignInParams = {
+        email: email,
+        password: password,
+      };
 
-    try {
-      const res = await signIn(params);
+      try {
+        const res = await signIn(params);
 
-      if (res.status === 200) {
-        Cookies.set("_access_token", res.headers["access-token"]);
-        Cookies.set("_client", res.headers["client"]);
-        Cookies.set("_uid", res.headers["uid"]);
+        if (res.status === 200) {
+          Cookies.set("_access_token", res.headers["access-token"]);
+          Cookies.set("_client", res.headers["client"]);
+          Cookies.set("_uid", res.headers["uid"]);
 
-        setIsSignedIn(true);
-        setCurrentUser(res.data.data);
+          setIsSignedIn(true);
+          setCurrentUser(res.data.data);
 
-        router.push("/");
+          console.log("Signed in successfully!");
 
-        console.log("Signed in successfully!");
-      } else {
-        console.log("error");
+          router.replace("/");
+        } else {
+          console.log("error");
+        }
+      } catch (err) {
+        console.log(err);
       }
-    } catch (err) {
-      console.log(err);
-    }
-  };
+    },
+    [email, password]
+  );
 
   return (
     <Flex
@@ -102,6 +105,6 @@ export const SignIn: FC = () => {
       </Box>
     </Flex>
   );
-};
+});
 
 export default SignIn;

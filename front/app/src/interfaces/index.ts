@@ -12,6 +12,12 @@ export type SignInParams = {
   password: string;
 };
 
+// サインイン
+export type UpdateParams = {
+  email?: string;
+  name?: string;
+};
+
 // ユーザー
 export type User = {
   id: number;
