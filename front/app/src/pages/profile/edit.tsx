@@ -1,5 +1,12 @@
 import React, { FC, useState, memo, useCallback, useEffect } from "react";
-import { Flex, Heading, Stack, chakra, Avatar } from "@chakra-ui/react";
+import {
+  Flex,
+  Heading,
+  Stack,
+  chakra,
+  Avatar,
+  useToast,
+} from "@chakra-ui/react";
 import { FaUserAlt, FaLock } from "react-icons/fa";
 import { useRouter } from "next/router";
 import Cookies from "js-cookie";
@@ -17,6 +24,7 @@ const CFaLock = chakra(FaLock);
 
 export const Edit: FC = memo(() => {
   const router = useRouter();
+  const toast = useToast();
   const { currentUser, setCurrentUser, setIsSignedIn } = useAuth();
 
   const [name, setName] = useState<string>("");
@@ -49,14 +57,27 @@ export const Edit: FC = memo(() => {
           setIsSignedIn(true);
           setCurrentUser(res.data.data);
 
-          console.log("Changed in successfully!");
+          toast({
+            title: "Profile updated successfully!!",
+            status: "success",
+            position: "top",
+            isClosable: true,
+          });
 
           router.replace("/profile");
         } else {
           console.log("error");
         }
       } catch (err) {
-        console.log(err);
+        const errors = err.response.data.errors;
+        errors.forEach((error: string) => {
+          toast({
+            title: error,
+            status: "error",
+            position: "top",
+            isClosable: true,
+          });
+        });
       }
     },
     [name, email, currentUser]

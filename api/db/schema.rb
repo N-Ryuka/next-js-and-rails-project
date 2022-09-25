@@ -20,14 +20,6 @@ ActiveRecord::Schema.define(version: 2022_09_11_062434) do
     t.index ["name"], name: "index_events_on_name", unique: true
   end
 
-  create_table "fanclubs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
-    t.integer "fanclub_master_id", null: false
-    t.bigint "user_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_id"], name: "index_fanclubs_on_user_id"
-  end
-
   create_table "user_events", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "event_id", null: false
@@ -51,8 +43,6 @@ ActiveRecord::Schema.define(version: 2022_09_11_062434) do
     t.datetime "confirmation_sent_at"
     t.string "unconfirmed_email"
     t.string "name"
-    t.string "nickname"
-    t.string "image"
     t.string "email"
     t.text "tokens"
     t.datetime "created_at", precision: 6, null: false
@@ -63,7 +53,6 @@ ActiveRecord::Schema.define(version: 2022_09_11_062434) do
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
   end
 
-  add_foreign_key "fanclubs", "users"
   add_foreign_key "user_events", "events"
   add_foreign_key "user_events", "users"
 end

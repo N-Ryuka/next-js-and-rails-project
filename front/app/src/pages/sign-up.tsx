@@ -7,6 +7,7 @@ import {
   Box,
   Link,
   Avatar,
+  useToast,
 } from "@chakra-ui/react";
 import { FaUserAlt, FaLock } from "react-icons/fa";
 import NLink from "next/link";
@@ -24,6 +25,7 @@ const CFaUserAlt = chakra(FaUserAlt);
 const CFaLock = chakra(FaLock);
 
 export const SignUp: FC = memo(() => {
+  const toast = useToast();
   const router = useRouter();
   const { setIsSignedIn, setCurrentUser } = useAuth();
 
@@ -55,16 +57,27 @@ export const SignUp: FC = memo(() => {
           setIsSignedIn(true);
           setCurrentUser(res.data.data);
 
-          console.log("Signed in successfully!");
+          toast({
+            title: "Signed up successfully!",
+            status: "success",
+            position: "top",
+            isClosable: true,
+          });
 
           router.replace("/");
         } else {
           console.log("error");
-          // setAlertMessageOpen(true);
         }
       } catch (err) {
-        console.log(err);
-        // setAlertMessageOpen(true);
+        const errors = err.response.data.errors.fullMessages;
+        errors.forEach((error: string) => {
+          toast({
+            title: error,
+            status: "error",
+            position: "top",
+            isClosable: true,
+          });
+        });
       }
     },
     [name, email, password, passwordConfirmation]

@@ -1,5 +1,11 @@
 import Cookies from "js-cookie";
-import { Box, Flex, HStack, useColorModeValue } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  HStack,
+  useColorModeValue,
+  useToast,
+} from "@chakra-ui/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { FC, useState, memo, useCallback, useEffect } from "react";
@@ -8,8 +14,8 @@ import { useAuth } from "../../../../contexts/AuthContext";
 import { signOut } from "../../../../lib/api/auth";
 
 export const Header = memo(() => {
+  const toast = useToast();
   const { setIsSignedIn, isSignedIn } = useAuth();
-
   const router = useRouter();
 
   const handleSignOut = useCallback(async () => {
@@ -23,14 +29,27 @@ export const Header = memo(() => {
 
         setIsSignedIn(false);
 
-        console.log("Succeeded in sign out");
+        toast({
+          title: "Succeeded in sign out",
+          status: "success",
+          position: "top",
+          isClosable: true,
+        });
 
         router.replace("/sign-in");
       } else {
         console.log("Failed in sign out");
       }
     } catch (err) {
-      console.log(err);
+      const errors = err.response.data.errors;
+      errors.forEach((error: string) => {
+        toast({
+          title: error,
+          status: "error",
+          position: "top",
+          isClosable: true,
+        });
+      });
     }
   }, []);
 

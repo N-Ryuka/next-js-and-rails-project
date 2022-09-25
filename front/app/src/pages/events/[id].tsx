@@ -1,5 +1,5 @@
 import React, { FC, memo } from "react";
-import { Flex, Stack } from "@chakra-ui/react";
+import { Flex, Stack, useToast } from "@chakra-ui/react";
 import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
 import { parseCookies } from "nookies";
@@ -19,6 +19,7 @@ interface Props {
 const Event: FC = memo((props: Props) => {
   const { event, joined } = props;
   const router = useRouter();
+  const toast = useToast();
 
   const handleSubmit = async () => {
     try {
@@ -27,12 +28,26 @@ const Event: FC = memo((props: Props) => {
       if (res.status === 200) {
         console.log(res);
 
+        toast({
+          title: "Joined successfully!!",
+          status: "success",
+          position: "top",
+          isClosable: true,
+        });
         router.replace("/profile/events");
       } else {
         console.log("error");
       }
     } catch (err) {
-      console.log(err);
+      const errors = err.response.data.errors.fullMessages;
+      errors.forEach((error: string) => {
+        toast({
+          title: error,
+          status: "error",
+          position: "top",
+          isClosable: true,
+        });
+      });
     }
   };
 

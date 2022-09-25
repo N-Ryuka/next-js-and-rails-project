@@ -3,9 +3,9 @@ module Api
     class UsersController < ApplicationController
       def update
         if current_api_v1_user.update(user_params)
-          render json: { message: 'Changed!', data: current_api_v1_user }, status: :ok
+          render json: { data: current_api_v1_user }, status: :ok
         else
-          render json: { message: "Couldn't change!", data: current_api_v1_user.errors }, status: :unprocessable_entity
+          render json: { errors: current_api_v1_user.errors.full_messages }, status: :unprocessable_entity
         end
       end
 

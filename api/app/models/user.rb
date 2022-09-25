@@ -11,9 +11,7 @@
 #  confirmed_at           :datetime
 #  email                  :string(255)
 #  encrypted_password     :string(255)      default(""), not null
-#  image                  :string(255)
 #  name                   :string(255)
-#  nickname               :string(255)
 #  provider               :string(255)      default("email"), not null
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
