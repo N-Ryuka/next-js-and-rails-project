@@ -1,11 +1,20 @@
-import React from "react";
+import { FC } from "react";
 
+/* contexts */
 import { AuthProvider } from "./AuthContext";
 
+/**
+ * props
+ */
 type Props = {
-  children: React.ReactNode;
+  children: JSX.Element;
 };
 
-export const RootContextProvider: React.FC<Props> = ({ children }: Props) => (
+/**
+ * RootContextProvider
+ * @param props Props
+ * @returns
+ */
+export const RootContextProvider: FC<Props> = ({ children }: Props) => (
   <AuthProvider>{children}</AuthProvider>
 );

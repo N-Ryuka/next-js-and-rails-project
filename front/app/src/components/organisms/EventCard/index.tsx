@@ -1,9 +1,18 @@
-import React, { FC, ReactNode } from "react";
+import React, { FC } from "react";
 import { Box, Stack, Image, Text } from "@chakra-ui/react";
 
-import { Event } from "../../../../interfaces";
+/* types */
+import { Event } from "../../../interfaces";
 
-export const EventCard: FC<Event> = ({ name, expected_at }) => {
+/**
+ * EventCard
+ * @param {Props} props
+ * @returns
+ */
+export const EventCard: FC<Event> = (props: Event) => {
+  /* props */
+  const { name, expected_at } = props;
+
   return (
     <Box
       w="260px"

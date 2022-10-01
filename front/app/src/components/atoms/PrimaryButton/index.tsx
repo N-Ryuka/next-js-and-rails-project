@@ -1,17 +1,25 @@
-import { Button } from "@chakra-ui/react";
 import { FC, ReactNode } from "react";
 
+import { Button } from "@chakra-ui/react";
+
+/**
+ * Props
+ */
 type Props = {
   children: ReactNode;
   onClick?: (e: React.MouseEvent<HTMLButtonElement>) => any;
   disabled?: boolean;
 };
 
-export const PrimaryButton: FC<Props> = ({
-  children,
-  onClick,
-  disabled = false,
-}) => {
+/**
+ * PrimaryButton
+ * @param {Props} props
+ * @returns
+ */
+export const PrimaryButton: FC<Props> = (props: Props) => {
+  /* props */
+  const { children, onClick, disabled = false } = props;
+
   return (
     <Button
       borderRadius={0}

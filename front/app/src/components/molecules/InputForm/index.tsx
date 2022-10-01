@@ -1,11 +1,15 @@
+import { FC } from "react";
+
 import {
   Input,
   InputGroup,
   InputLeftElement,
   FormControl,
 } from "@chakra-ui/react";
-import { FC } from "react";
 
+/**
+ * props
+ */
 type Props = {
   placeholder: string;
   type: string;
@@ -14,7 +18,13 @@ type Props = {
   setValue: React.Dispatch<React.SetStateAction<string>>;
 };
 
-export const InputForm: FC<Props> = (props) => {
+/**
+ * InputForm
+ * @param {Props} props
+ * @returns
+ */
+export const InputForm: FC<Props> = (props: Props) => {
+  /* props */
   const { icon, value, setValue, type, placeholder } = props;
 
   return (

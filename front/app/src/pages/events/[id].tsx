@@ -1,27 +1,43 @@
-import React, { FC, memo } from "react";
-import { Flex, Stack, useToast } from "@chakra-ui/react";
-import { GetServerSideProps } from "next";
+import React from "react";
+import { GetServerSideProps, NextPage } from "next";
 import { useRouter } from "next/router";
 import { parseCookies } from "nookies";
 
-import { Auth } from "../../components/auth";
-import { EventCard } from "../../components/common/organisms/EventCard";
-import { PrimaryButton } from "../../components/common/atoms/PrimaryButton";
-import { Event } from "../../interfaces";
-import { joinEvent } from "../../lib/api/event";
-import { useAuth } from "../../contexts/AuthContext";
+import { Stack, useToast } from "@chakra-ui/react";
 
+/* types */
+import { Event } from "../../interfaces";
+/* api */
+import { joinEvent } from "../../lib/api/event";
+/* components */
+import { LoginRequired } from "../../components/auth";
+import { PrimaryButton } from "../../components/atoms/PrimaryButton";
+import { EventCard } from "../../components/organisms/EventCard";
+import { NarrowCenterdTemplate } from "../../components/templates/NarrowCenterdTemplate";
+
+/* types */
 interface Props {
   event: Event;
   joined: boolean;
 }
 
-const Event: FC = memo((props: Props) => {
+/**
+ * Event
+ * @param props Props
+ * @returns
+ */
+const Event: NextPage<Props> = (props: Props) => {
+  /* props */
   const { event, joined } = props;
-  const router = useRouter();
+
+  /* hooks */
   const toast = useToast();
 
-  const handleSubmit = async () => {
+  /* router */
+  const router = useRouter();
+
+  // イベントに参加
+  const handleJoinEvent = async () => {
     try {
       const res = await joinEvent(event.id);
 
@@ -38,9 +54,8 @@ const Event: FC = memo((props: Props) => {
       } else {
         console.log("error");
       }
-    } catch (err) {
-      const errors = err.response.data.errors.fullMessages;
-      errors.forEach((error: string) => {
+    } catch ({ err: response }) {
+      response.data.errors.fullMessages.forEach((error: string) => {
         toast({
           title: error,
           status: "error",
@@ -53,14 +68,8 @@ const Event: FC = memo((props: Props) => {
 
   return (
     <>
-      <Auth>
-        <Flex
-          flexDirection="column"
-          width="100wh"
-          height="100vh"
-          justifyContent="center"
-          alignItems="center"
-        >
+      <LoginRequired>
+        <NarrowCenterdTemplate>
           <Stack>
             <EventCard
               key={event.name}
@@ -73,16 +82,20 @@ const Event: FC = memo((props: Props) => {
             {joined ? (
               <PrimaryButton disabled={joined}>Joined</PrimaryButton>
             ) : (
-              <PrimaryButton onClick={handleSubmit}>Join</PrimaryButton>
+              <PrimaryButton onClick={handleJoinEvent}>Join</PrimaryButton>
             )}
           </Stack>
-        </Flex>
-      </Auth>
+        </NarrowCenterdTemplate>
+      </LoginRequired>
     </>
   );
-});
+};
 export default Event;
 
+/**
+ * getServerSideProps
+ * @returns
+ */
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const cookie = parseCookies(context);
   const response = await fetch(

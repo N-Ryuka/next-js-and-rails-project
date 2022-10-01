@@ -1,4 +1,8 @@
+import Link from "next/link";
+import { useRouter } from "next/router";
+import React, { useCallback } from "react";
 import Cookies from "js-cookie";
+
 import {
   Box,
   Flex,
@@ -6,18 +10,25 @@ import {
   useColorModeValue,
   useToast,
 } from "@chakra-ui/react";
-import Link from "next/link";
-import { useRouter } from "next/router";
-import React, { FC, useState, memo, useCallback, useEffect } from "react";
 
-import { useAuth } from "../../../../contexts/AuthContext";
-import { signOut } from "../../../../lib/api/auth";
+/* hooks */
+import { useAuth } from "../../../contexts/AuthContext";
+/* api */
+import { signOut } from "../../../lib/api/auth";
 
-export const Header = memo(() => {
+/**
+ * Header
+ * @returns
+ */
+export const Header = () => {
+  /* hooks */
   const toast = useToast();
   const { setIsSignedIn, isSignedIn } = useAuth();
+
+  /* hooks */
   const router = useRouter();
 
+  // サインアウト
   const handleSignOut = useCallback(async () => {
     try {
       const res = await signOut();
@@ -40,9 +51,8 @@ export const Header = memo(() => {
       } else {
         console.log("Failed in sign out");
       }
-    } catch (err) {
-      const errors = err.response.data.errors;
-      errors.forEach((error: string) => {
+    } catch ({ err: response }) {
+      response.data.errors.forEach((error: string) => {
         toast({
           title: error,
           status: "error",
@@ -57,7 +67,7 @@ export const Header = memo(() => {
     <>
       <Box bg={useColorModeValue("gray.100", "gray.900")} px={4}>
         <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
-          <Link href="/">Logo</Link>
+          <Link href="/">HOME</Link>
           <HStack as={"nav"} spacing={4} display={{ base: "flex" }}>
             {isSignedIn ? (
               <>
@@ -65,7 +75,7 @@ export const Header = memo(() => {
                   <a>Profile</a>
                 </Link>
                 <Link href="">
-                  <a onClick={() => handleSignOut()}>Logout</a>
+                  <a onClick={() => handleSignOut()}>Sign Out</a>
                 </Link>
               </>
             ) : (
@@ -83,4 +93,4 @@ export const Header = memo(() => {
       </Box>
     </>
   );
-});
+};

@@ -1,42 +1,54 @@
-import React, { FC, memo } from "react";
-import { Wrap, WrapItem } from "@chakra-ui/react";
-import { GetServerSideProps } from "next";
+import React from "react";
+import { GetServerSideProps, NextPage } from "next";
 import { parseCookies } from "nookies";
 
-import { Auth } from "../../components/auth";
-import { useAuth } from "../../contexts/AuthContext";
-import { EventCard } from "../../components/common/organisms/EventCard";
-import { Event } from "../../interfaces";
+import { Wrap, WrapItem } from "@chakra-ui/react";
 
+/* types */
+import { Event } from "../../interfaces";
+/* compenents */
+import { LoginRequired } from "../../components/auth";
+import { EventCard } from "../../components/organisms/EventCard";
+import { BaseTemplate } from "../../components/templates/BaseTemplate";
+
+/* props */
 interface Props {
   events: Array<Event>;
 }
 
-const Events: FC = memo((props: Props) => {
+/**
+ * Events
+ * @param props Props
+ * @returns
+ */
+const Events: NextPage<Props> = (props: Props) => {
+  /* hooks */
   const { events } = props;
 
   return (
     <>
-      <Auth>
-        <h1>参加するイベント</h1>
-        <Wrap p={{ base: 4, md: 8 }}>
-          {events.map((event) => (
-            <WrapItem key={event.name}>
-              <EventCard
-                key={event.name}
-                id={event.id}
-                name={event.name}
-                expected_at={event.expected_at}
-                created_at={event.created_at}
-                updated_at={event.updated_at}
-              />
-            </WrapItem>
-          ))}
-        </Wrap>
-      </Auth>
+      <LoginRequired>
+        <BaseTemplate>
+          <h1>参加するイベント</h1>
+          <Wrap p={{ base: 4, md: 8 }}>
+            {events.map((event: Event) => (
+              <WrapItem key={event.name}>
+                <EventCard
+                  key={event.name}
+                  id={event.id}
+                  name={event.name}
+                  expected_at={event.expected_at}
+                  created_at={event.created_at}
+                  updated_at={event.updated_at}
+                />
+              </WrapItem>
+            ))}
+          </Wrap>
+        </BaseTemplate>
+      </LoginRequired>
     </>
   );
-});
+};
 export default Events;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {

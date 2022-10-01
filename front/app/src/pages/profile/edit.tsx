@@ -1,32 +1,42 @@
-import React, { FC, useState, memo, useCallback, useEffect } from "react";
-import {
-  Flex,
-  Heading,
-  Stack,
-  chakra,
-  Avatar,
-  useToast,
-} from "@chakra-ui/react";
-import { FaUserAlt, FaLock } from "react-icons/fa";
+import React, { useState, useCallback, useEffect } from "react";
 import { useRouter } from "next/router";
+import { NextPage } from "next";
 import Cookies from "js-cookie";
 
-import { Auth } from "../../components/auth";
+import { chakra, useToast } from "@chakra-ui/react";
+import { FaUserAlt, FaLock } from "react-icons/fa";
+
+/* hooks */
 import { useAuth } from "../../contexts/AuthContext";
-import { PrimaryButton } from "../../components/common/atoms/PrimaryButton";
-import { InputForm } from "../../components/common/molecules/InputForm";
-import { AuthFormOrganism } from "../../components/common/organisms/AuthFormOrganism";
+/* types */
 import { UpdateParams } from "../../interfaces";
+/* api */
 import { updateProfile } from "../../lib/api/user";
+/* components */
+import { LoginRequired } from "../../components/auth";
+import { PrimaryButton } from "../../components/atoms/PrimaryButton";
+import { InputForm } from "../../components/molecules/InputForm";
+import { AuthFormOrganism } from "../../components/organisms/AuthFormOrganism";
+import { NarrowCenterdTemplate } from "../../components/templates/NarrowCenterdTemplate";
 
 const CFaUserAlt = chakra(FaUserAlt);
 const CFaLock = chakra(FaLock);
 
-export const Edit: FC = memo(() => {
-  const router = useRouter();
-  const toast = useToast();
+/**
+ * Edit
+ * @returns
+ */
+export const Edit: NextPage = () => {
+  /* props */
   const { currentUser, setCurrentUser, setIsSignedIn } = useAuth();
 
+  /* router */
+  const router = useRouter();
+
+  /* hooks */
+  const toast = useToast();
+
+  /* states */
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
 
@@ -35,10 +45,12 @@ export const Edit: FC = memo(() => {
     if (currentUser?.email) setEmail(currentUser?.email);
   }, [currentUser?.name, currentUser?.email]);
 
-  const handleSubmit = useCallback(
-    async (e) => {
+  // プロフィールのアップデート
+  const handleUpdateProfile = useCallback(
+    async (e: React.MouseEvent<HTMLButtonElement>) => {
       e.preventDefault();
 
+      /* types */
       const params: UpdateParams = {
         name: name,
         email: email,
@@ -68,9 +80,8 @@ export const Edit: FC = memo(() => {
         } else {
           console.log("error");
         }
-      } catch (err) {
-        const errors = err.response.data.errors;
-        errors.forEach((error: string) => {
+      } catch ({ err: response }) {
+        response.data.errors.forEach((error: string) => {
           toast({
             title: error,
             status: "error",
@@ -84,43 +95,27 @@ export const Edit: FC = memo(() => {
   );
 
   return (
-    <Auth>
-      <Flex
-        flexDirection="column"
-        width="100wh"
-        height="100vh"
-        justifyContent="center"
-        alignItems="center"
-      >
-        <Stack
-          flexDir="column"
-          mb="2"
-          justifyContent="center"
-          alignItems="center"
-        >
-          <Avatar bg="teal.500" />
-          <Heading color="teal.400">Edit</Heading>
-          <AuthFormOrganism>
-            <InputForm
-              icon={<CFaUserAlt color="gray.300" />}
-              value={name}
-              setValue={setName}
-              type="text"
-              placeholder="Name"
-            />
-            <InputForm
-              icon={<CFaLock color="gray.300" />}
-              value={email}
-              setValue={setEmail}
-              type="email"
-              placeholder="Email"
-            />
-            <PrimaryButton onClick={handleSubmit}>Update</PrimaryButton>
-          </AuthFormOrganism>
-        </Stack>
-      </Flex>
-    </Auth>
+    <LoginRequired>
+      <NarrowCenterdTemplate>
+        <AuthFormOrganism>
+          <InputForm
+            icon={<CFaUserAlt color="gray.300" />}
+            value={name}
+            setValue={setName}
+            type="text"
+            placeholder="Name"
+          />
+          <InputForm
+            icon={<CFaLock color="gray.300" />}
+            value={email}
+            setValue={setEmail}
+            type="email"
+            placeholder="Email"
+          />
+          <PrimaryButton onClick={handleUpdateProfile}>Update</PrimaryButton>
+        </AuthFormOrganism>
+      </NarrowCenterdTemplate>
+    </LoginRequired>
   );
-});
-
+};
 export default Edit;

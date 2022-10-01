@@ -19,7 +19,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "src/components/common/molecules/InputForm"
+    "src/components/molecules/InputForm"
   ],
   "exclude": ["node_modules"]
 }

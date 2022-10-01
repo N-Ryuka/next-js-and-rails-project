@@ -1,45 +1,40 @@
-import React, { FC, memo, useEffect } from "react";
-import { Flex, Heading, Stack, Text, Avatar, Link } from "@chakra-ui/react";
+import React from "react";
 import NLink from "next/link";
+import { NextPage } from "next";
 
-import { Auth } from "../../components/auth";
+import { Text, Link } from "@chakra-ui/react";
+
+/* hooks */
 import { useAuth } from "../../contexts/AuthContext";
-import { AuthFormOrganism } from "../../components/common/organisms/AuthFormOrganism";
+/* components */
+import { LoginRequired } from "../../components/auth";
+import { AuthFormOrganism } from "../../components/organisms/AuthFormOrganism";
+import { NarrowCenterdTemplate } from "../../components/templates/NarrowCenterdTemplate";
 
-export const Profile: FC = memo(() => {
+/**
+ * Profile
+ * @returns
+ */
+export const Profile: NextPage = () => {
+  /* hooks */
   const { currentUser } = useAuth();
 
   return (
-    <Auth>
-      <Flex
-        flexDirection="column"
-        width="100wh"
-        height="100vh"
-        justifyContent="center"
-        alignItems="center"
-      >
-        <Stack
-          flexDir="column"
-          mb="2"
-          justifyContent="center"
-          alignItems="center"
-        >
-          <Avatar bg="teal.500" />
-          <Heading>Your Information</Heading>
-          <AuthFormOrganism>
-            <Text>{currentUser?.name}</Text>
-            <Text>{currentUser?.email}</Text>
-            <NLink href="profile/edit">
-              <Link color="teal.500">Change profile</Link>
-            </NLink>
-            <NLink href="profile/events">
-              <Link color="teal.500">See all events you are joining</Link>
-            </NLink>
-          </AuthFormOrganism>
-        </Stack>
-      </Flex>
-    </Auth>
+    <LoginRequired>
+      <NarrowCenterdTemplate>
+        <AuthFormOrganism>
+          <Text>{currentUser?.name}</Text>
+          <Text>{currentUser?.email}</Text>
+          <NLink href="profile/edit">
+            <Link color="teal.500">Change profile</Link>
+          </NLink>
+          <NLink href="profile/events">
+            <Link color="teal.500">See all events you are joining</Link>
+          </NLink>
+        </AuthFormOrganism>
+      </NarrowCenterdTemplate>
+    </LoginRequired>
   );
-});
+};
 
 export default Profile;

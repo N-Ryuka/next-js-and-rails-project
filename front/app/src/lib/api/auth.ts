@@ -1,6 +1,7 @@
 import client from "../api/client";
 import Cookies from "js-cookie";
 
+/* types */
 import { SignUpParams, SignInParams } from "../../interfaces/index";
 
 // サインアップ（新規アカウント作成）

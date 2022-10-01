@@ -1,15 +1,11 @@
-import React, {
-  createContext,
-  useContext,
-  useState,
-  useEffect,
-  useCallback,
-  memo,
-} from "react";
+import React, { createContext, useContext, useState, useEffect } from "react";
 
+/* types */
 import { User } from "../interfaces/index";
+/* api */
 import { getCurrentUser } from "../lib/api/auth";
 
+// Context
 export const AuthContext = createContext(
   {} as {
     loading: boolean;
@@ -21,7 +17,20 @@ export const AuthContext = createContext(
   }
 );
 
-export const AuthProvider = ({ children }) => {
+/**
+ * props
+ */
+type Props = {
+  children: React.ReactNode;
+};
+
+/**
+ * AuthProvider
+ * @param props Props
+ * @returns
+ */
+export const AuthProvider = ({ children }: Props) => {
+  /* states */
   const [loading, setLoading] = useState<boolean>(true);
   const [isSignedIn, setIsSignedIn] = useState<boolean>(false);
   const [currentUser, setCurrentUser] = useState<User | undefined>();
@@ -38,7 +47,7 @@ export const AuthProvider = ({ children }) => {
           console.log("No current user");
         }
       } catch (err) {
-        console.log(err.response);
+        console.log(err);
       }
       setLoading(false);
     })();

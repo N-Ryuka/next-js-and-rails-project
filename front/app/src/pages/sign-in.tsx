@@ -1,41 +1,49 @@
-import React, { FC, useState, memo, useCallback } from "react";
-import {
-  Flex,
-  Heading,
-  Stack,
-  chakra,
-  Box,
-  Link,
-  Avatar,
-  useToast,
-} from "@chakra-ui/react";
-import { FaUserAlt, FaLock } from "react-icons/fa";
+import React, { useState, useCallback } from "react";
 import NLink from "next/link";
-import Cookies from "js-cookie";
 import { useRouter } from "next/router";
+import { NextPage } from "next";
+import Cookies from "js-cookie";
 
+import { chakra, Box, Link, useToast } from "@chakra-ui/react";
+import { FaUserAlt, FaLock } from "react-icons/fa";
+
+/* hooks */
 import { useAuth } from "../contexts/AuthContext";
+/* api */
 import { signIn } from "../lib/api/auth";
+/* types */
 import { SignInParams } from "../interfaces/index";
-import { PrimaryButton } from "../components/common/atoms/PrimaryButton";
-import { InputForm } from "../components/common/molecules/InputForm";
-import { AuthFormOrganism } from "../components/common/organisms/AuthFormOrganism";
+/* components */
+import { PrimaryButton } from "../components/atoms/PrimaryButton";
+import { InputForm } from "../components/molecules/InputForm";
+import { AuthFormOrganism } from "../components/organisms/AuthFormOrganism";
+import { NarrowCenterdTemplate } from "../components/templates/NarrowCenterdTemplate";
 
 const CFaUserAlt = chakra(FaUserAlt);
 const CFaLock = chakra(FaLock);
 
-export const SignIn: FC = memo(() => {
+/**
+ * SignIn
+ * @returns
+ */
+export const SignIn: NextPage = () => {
+  /* hooks */
   const toast = useToast();
-  const router = useRouter();
   const { setIsSignedIn, setCurrentUser } = useAuth();
 
+  /* router */
+  const router = useRouter();
+
+  /* states */
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
-  const handleSubmit = useCallback(
+  // サインイン
+  const handleSignIn = useCallback(
     async (e: React.MouseEvent<HTMLButtonElement>) => {
       e.preventDefault();
 
+      /* types */
       const params: SignInParams = {
         email: email,
         password: password,
@@ -63,9 +71,8 @@ export const SignIn: FC = memo(() => {
         } else {
           console.log("error");
         }
-      } catch (err) {
-        const errors = err.response.data.errors;
-        errors.forEach((error) => {
+      } catch ({ err: response }) {
+        response.data.errors.forEach((error: string) => {
           toast({
             title: error,
             status: "error",
@@ -73,54 +80,38 @@ export const SignIn: FC = memo(() => {
             isClosable: true,
           });
         });
-        console.log(err);
       }
     },
     [email, password]
   );
 
   return (
-    <Flex
-      flexDirection="column"
-      width="100wh"
-      height="100vh"
-      justifyContent="center"
-      alignItems="center"
-    >
-      <Stack
-        flexDir="column"
-        mb="2"
-        justifyContent="center"
-        alignItems="center"
-      >
-        <Avatar bg="teal.500" />
-        <Heading color="teal.400">Welcome</Heading>
-        <AuthFormOrganism>
-          <InputForm
-            icon={<CFaUserAlt color="gray.300" />}
-            value={email}
-            setValue={setEmail}
-            type="email"
-            placeholder="Email address"
-          />
-          <InputForm
-            icon={<CFaLock color="gray.300" />}
-            value={password}
-            setValue={setPassword}
-            type="password"
-            placeholder="Password"
-          />
-          <PrimaryButton onClick={handleSubmit}>Sign In</PrimaryButton>
-        </AuthFormOrganism>
-      </Stack>
+    <NarrowCenterdTemplate>
+      <AuthFormOrganism>
+        <InputForm
+          icon={<CFaUserAlt color="gray.300" />}
+          value={email}
+          setValue={setEmail}
+          type="email"
+          placeholder="Email address"
+        />
+        <InputForm
+          icon={<CFaLock color="gray.300" />}
+          value={password}
+          setValue={setPassword}
+          type="password"
+          placeholder="Password"
+        />
+        <PrimaryButton onClick={handleSignIn}>Sign In</PrimaryButton>
+      </AuthFormOrganism>
       <Box>
         New to us?{" "}
         <NLink href="sign-up">
           <Link color="teal.500">Sign Up</Link>
         </NLink>
       </Box>
-    </Flex>
+    </NarrowCenterdTemplate>
   );
-});
+};
 
 export default SignIn;
