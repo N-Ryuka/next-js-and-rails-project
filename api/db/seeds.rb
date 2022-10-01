@@ -1,19 +1,6 @@
-Post.create!(
-  [
-    {
-      title: 'Next.js + Ruby on Rails + Docker の環境構築'
-    },
-    {
-      title: 'React Hooks でカスタムフックを作る'
-    },
-    {
-      title: 'GraphQL と Apollo Client 入門'
-    },
-    {
-      title: '【TypeScript4.3】Template Literal Types'
-    },
-    {
-      title: 'Tailwind CSS でダークモード実装'
-    },
-  ]
-)
+event_records = []
+current_time = Time.current
+(1..5).each do |i|
+  event_records << { name: "イベント#{i}", expected_at: current_time + i.months, created_at: current_time, updated_at: current_time }
+end
+Event.insert_all!(event_records)
